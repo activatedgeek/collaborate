@@ -10,8 +10,8 @@ $username = $_POST['username'];
 $email = $_POST['email'];
 $password = $_POST['password'];
 $password = hash("sha512", $password, false);
-$values = "'".$username."','".$firstName."','".$lastName."','".$password."','".$email."'";
-$query = "INSERT INTO user(username, first_name, last_name, password, email) VALUES (".$values.")";
+$values = "'".hash("md2",$firstName+$lastName+$username)."','".$username."','".$firstName."','".$lastName."','".$password."','".$email."'";
+$query = "INSERT INTO user VALUES (".$values.")";
 if(!mysqli_query($con, $query))
     return;
 ?>
