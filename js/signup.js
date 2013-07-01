@@ -12,16 +12,14 @@ function getDetails(){
 function uniqueUsername(){
     username = document.getElementById("username").value;
     if(username!="" && username.length>=4){
-        var edit=new XMLHttpRequest();
+        var edit = new XMLHttpRequest();
         edit.onreadystatechange=function(){
         if (edit.readyState==4 && edit.status==200 && edit.responseText=='OK'){
             document.getElementById("username").style.borderColor = "Green";
-            alert(edit.responseText);
             return true;
             }
         else{
             document.getElementById("username").style.borderColor = "Red";
-            alert(edit.responseText);
             return false;
             }
         }
@@ -124,5 +122,16 @@ function checkDetails(){
 
 function signup(){
         getDetails();
-        checkValidity();
+        if(checkValidity()){
+           var setup = new XMLHttpRequest();
+           setup.onreadystatechange= function(){
+                if(edit.readyState==4 && edit.status==200){
+                    window.open("test.php","_parent",true);
+                }
+           }
+            var params = "firstName="+encodeURIComponent(firstName)+"&lastName="+encodeURIComponent(lastName)+"&username="+encodeURIComponent(username)+"&email="+encodeURIComponent(email)+"&password="+encodeURIComponent(password);
+            setup.open("POST","accounts/setup.php",false);
+            setup.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            setup.send(params);
+        }
 }
