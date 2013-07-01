@@ -27,7 +27,7 @@ function uniqueUsername(){
         }
         var params = "username="+encodeURIComponent(username);
         edit.open("POST","accounts/unique.php",true);
-        validate.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        edit.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         edit.send(params);
     }
     else if(username.length<4 && username!=""){
