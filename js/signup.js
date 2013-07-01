@@ -125,7 +125,7 @@ function signup(){
         if(checkValidity()){
            var setup = new XMLHttpRequest();
            setup.onreadystatechange= function(){
-                if(edit.readyState==4 && edit.status==200){
+                if(setup.readyState==4 && setup.status==200){
                     window.open("test.php","_parent",true);
                 }
            }
