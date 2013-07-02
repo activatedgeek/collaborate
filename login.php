@@ -1,3 +1,9 @@
+<?php
+header("Expires: Mon, 25 Jul 1994 04:00:00 GMT");
+header("Cache-Control: no-cache");
+header("Pragma: no-cache");
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +16,7 @@
 </head>
 
 <body>
-  <div><a class="navs" href="signup.html" target="_parent">Join</a></div>
+  <div><a class="navs" href="signup.php" target="_parent">Join</a></div>
   <div id="loginCreds">
     <form>
       <input id="id" type="text" placeholder="$_GET ID"/></br>
