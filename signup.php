@@ -1,3 +1,9 @@
+<?php
+header("Expires: Mon, 25 Jul 1994 04:00:00 GMT");
+header("Cache-Control: no-cache");
+header("Pragma: no-cache");
+?>
+
 <!doctype html>
 </html>
 <head>
@@ -8,7 +14,7 @@
 </head>
 
 <body>
-<div><a class="navs" href="login.html" target="_blank">Login</a></div>
+<div><a class="navs" href="login.php" target="_blank">Login</a></div>
 <div id="info">
 <form>
     <fieldset id="reg">
