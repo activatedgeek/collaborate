@@ -8,11 +8,13 @@ header("Pragma: no-cache");
 <html>
 <head>
   <title>Collaborate</title>
-
   <link rel="shortcut icon" href="http://localhost/collaborate/icons/collaborate.ico">
-  <link rel="stylesheet" type="text/css" href="stylesheets/login.css">
+<?php
+    echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"stylesheets/".basename(__FILE__,'.php').".css\">";
+    echo "<script type=\"text/javascript\" src=\"js/".basename(__FILE__,'.php').".js\"></script>";
+?>
   <link rel="stylesheet" type="text/css" href="stylesheets/navs.css">
-  <script type="text/javascript" src="js/login.js"></script>
+  
 </head>
 
 <body>
