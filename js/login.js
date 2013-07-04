@@ -15,7 +15,7 @@ else{
   document.getElementById("errorMsg").innerHTML = "";
   //jQuery AJAX POST
   $.post("accounts/validate.php",{user: user, pass: pass},
-   function(data,status){
+	 function(data,status){
 	  if(status=='success' && data=='OK')
 	    window.open("test.php","_parent",true);
 	  else if(status=='success' && data=='DENY'){
