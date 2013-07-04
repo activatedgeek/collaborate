@@ -12,6 +12,26 @@ function getDetails(){
 function uniqueUsername(){
     username = document.getElementById("username").value;
     if(username!="" && username.length>=4){
+        //jQuery AJAX POST
+        $.post("accounts/unique.php",{username: username},
+            function(data, status){
+                if(status=='success' && data=='OK'){
+                   document.getElementById("username").style.borderColor = "Green";
+                   return true;
+                }
+                else if(status=='success' && data=='DENY'){
+                    document.getElementById("username").style.borderColor = "Red";
+                    return false;
+                }
+                else{
+                    alert(status);
+                    return false;
+                }
+            });
+        
+        /*
+        //AJAX POST
+        
         var edit = new XMLHttpRequest();
         edit.onreadystatechange=function(){
         if (edit.readyState==4 && edit.status==200 && edit.responseText=='OK'){
@@ -27,6 +47,7 @@ function uniqueUsername(){
         edit.open("POST","accounts/unique.php",true);
         edit.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         edit.send(params);
+        */
     }
     else if(username.length<4 && username!=""){
         document.getElementById("username").style.borderColor = "Red";
@@ -39,7 +60,8 @@ function uniqueUsername(){
 }
 
 function checkValidity(){
-    if(firstName!="" && lastName!="" && username!="" && email!="" && password!="" && pass_repeat!="" && uniqueUsername && password==pass_repeat && password.length>8){
+    getDetails();
+    if(firstName!="" && lastName!="" && username!="" && email!="" && password!="" && uniqueUsername && password==pass_repeat && password.length>8){
         return true;
     }
     else{
@@ -121,8 +143,16 @@ function checkDetails(){
 
 
 function signup(){
-        getDetails();
         if(checkValidity()){
+            $.post("accounts/setup.php",
+                {firstName: firstName, lastName: lastName, username: username,email: email,password: password},
+                function(data, status){
+                    if(status=='success' && data=='OK')
+                        window.open("test.php","_parent",true);
+                    else
+                        alert(data);
+                });
+            /*
            var setup = new XMLHttpRequest();
            setup.onreadystatechange= function(){
                 if(setup.readyState==4 && setup.status==200){
@@ -133,5 +163,6 @@ function signup(){
             setup.open("POST","accounts/setup.php",false);
             setup.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             setup.send(params);
+            */
         }
 }
