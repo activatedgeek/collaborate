@@ -2,6 +2,7 @@
 $con = mysqli_connect("localhost","root","123","collaborate");
 if(!$con){
     mysqli_close($con);
+    echo "CONNECTION FAIL";
     return;
 }
 $firstName = $_POST['firstName'];
@@ -10,8 +11,11 @@ $username = $_POST['username'];
 $email = $_POST['email'];
 $password = $_POST['password'];
 $password = hash("sha512", $password, false);
-$values = "'".hash("md2",$firstName+$lastName+$username)."','".$username."','".$firstName."','".$lastName."','".$password."','".$email."'";
-$query = "INSERT INTO user VALUES (".$values.")";
-if(!mysqli_query($con, $query))
+$values = "'".$username."','".$firstName."','".$lastName."','".$password."','".$email."'";
+$query = "INSERT INTO user(`username`,`first_name`,`last_name`,`password`,`email`) VALUES (".$values.")";
+if(!mysqli_query($con, $query)){
+    echo mysqli_error($con);
     return;
+}
+echo "OK";
 ?>
