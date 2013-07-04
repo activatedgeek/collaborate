@@ -8,6 +8,7 @@ header("Pragma: no-cache");
 <html>
 <head>
   <title>Collaborate</title>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
   <link rel="shortcut icon" href="http://localhost/collaborate/icons/collaborate.ico">
 <?php
     echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"stylesheets/".basename(__FILE__,'.php').".css\">";
