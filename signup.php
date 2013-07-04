@@ -8,12 +8,13 @@ header("Pragma: no-cache");
 </html>
 <head>
     <title>Start Collaborating</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
     <link rel="shortcut icon" href="http://localhost/collaborate/icons/collaborate.ico">
 <?php
     echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"stylesheets/".basename(__FILE__,'.php').".css\">";
     echo "<script type=\"text/javascript\" src=\"js/".basename(__FILE__,'.php').".js\"></script>";
 ?>
-    <link rel="stylesheet" type="text/css" href="stylesheets/navs.css">
+  <link rel="stylesheet" type="text/css" href="stylesheets/navs.css">
 </head>
 
 <body>
