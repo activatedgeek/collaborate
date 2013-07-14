@@ -63,9 +63,9 @@
             text-decoration: none;
         }
         #navbar .logo a{
-            transition: text-shadow 0.5s;
-            -ms-transition: text-shadow 0.5s;
-            -webkit-transition: text-shadow 0.5s;
+            transition: text-shadow 0.5s, color 0.5s;
+            -ms-transition: text-shadow 0.5s, color 0.5s;
+            -webkit-transition: text-shadow 0.5s, color 0.5s;
         }
         #navbar .logo a:hover{
             text-shadow: 0 1px 3px #333;
