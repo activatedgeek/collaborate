@@ -1,8 +1,12 @@
 <!DOCTYPE html>
+
 <html>
 <head>
+    <script src="//use.edgefonts.net/poiret-one.js"></script>
+    <script src="//use.edgefonts.net/miama:n4.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-    <script type="text/javascript">
+    <script src="js/login.js"></script>
+    <script>
     /**A php snippet to check if user logged in or not,to be added later**/
     var s=true;
     $(document).ready(function(){
@@ -10,13 +14,13 @@
             $("#logcred").css("visibility","hidden");
         }
         $("#login_nav").click(function(){
+            document.getElementById("errorMsg").innerHTML='';
+            $("#id").val('');
             $("#logcred").css("visibility","visible");
-            $("#logcred").css("position","fixed").fadeToggle(500);
+            $("#logcred").css("position","fixed").fadeToggle(500);  
         });
     });
     </script>
-    <script src="//use.edgefonts.net/poiret-one.js"></script>
-    <script src="//use.edgefonts.net/miama:n4.js"></script>
     <style>
         body{
             margin: 0;
@@ -107,7 +111,7 @@
             border-bottom-right-radius: 1em;
             border-bottom-left-radius: 1em;
         }
-        #logcred #login,#pass{
+        #logcred #id,#pass{
             display: block;
             text-align: center;
             width: 98.5%;
@@ -143,8 +147,8 @@
             -ms-transition: background 1s;
             -webkit-transition: background 1s;
         }
-        #logcred #submit:hover{
-            background: linear-gradient(rgba(12,113,15,0.85) 0,rgba(40,186,44,0.85) 50%,rgba(82,199,86,0.85) 60%,rgba(12,113,15,0.85) 100%);
+        #logcred #errorMsg{
+            display: block;
         }
         .content{
             position: absolute;
@@ -159,11 +163,13 @@
 </head>
 
 <body>
+<?php  /**Add a checker to which div element to echo based on login state**/?>
     <div id="logcred">
-        <input type="text" id="login">
+        <input type="text" id="id">
         <input type="password" id="pass">
-        <input type="button" id="submit" value="Login">
+        <input type="button" id="submit" value="Login" onclick="sendCreds()">
         <span><a href="#">Forgot Credentials?</a></span>
+        <span id="errorMsg"></span>
     </div>
     <div id="navbar">
         <div id="1" class="logo navlinks"><a href="#">Collaborate</a></div><span class="dot">.</span>
