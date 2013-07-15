@@ -19,9 +19,24 @@
             $("#logcred").css("visibility","visible");
             $("#logcred").css("position","fixed").fadeToggle(500);  
         });
+        $("#button").click(function(){
+            $(this).removeAttr("contenteditable");
+            alert($("#code").val());
+        });
     });
     </script>
     <style>
+        @font-face {
+            font-family: 'notcouriersansbold';
+            src: url('stylesheets/code_text/NotCourierSans-Bold-webfont.eot');
+            src: url('stylesheets/code_text/NotCourierSans-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+                 url('stylesheets/code_text/NotCourierSans-Bold-webfont.woff') format('woff'),
+                 url('stylesheets/code_text/NotCourierSans-Bold-webfont.ttf') format('truetype'),
+                 url('stylesheets/code_text/NotCourierSans-Bold-webfont.svg#notcouriersansbold') format('svg');
+            font-weight: normal;
+            font-style: normal;
+        }
+
         body{
             margin: 0;
             background: #eaeaea;
@@ -62,7 +77,7 @@
             padding-top: 1em;
             transition: background 0.5s;
             -ms-transition: background 0.5s;
-            -webkit-transition: background 0.5s;
+            -webkit-transition: background 0.5s; 
         }
         #navbar .nav:hover{
             background: #9894a9;
@@ -156,8 +171,23 @@
             width: 99%;
             height: 100%;
         }
-        .content #test{
-            margin-left: 53%;
+        .content #code{
+            margin: 1em auto;
+            overflow: auto;
+            width: 70%;
+            height: 60em;
+            max-height: 60em;
+            padding: 1em; 
+            font-family: 'notcouriersansbold';
+            font-size: 1em;
+            font-weight: 100;
+            text-shadow: -1px 0 1px #a59f9f;
+            background: #d5d8e1;
+            -moz-box-shadow:    0 0 5px 2px #87aada;
+            -webkit-box-shadow: 0 0 5px 2px #87aada;
+            box-shadow:         0 0 5px 2px #87aada;
+            letter-spacing: 1px;
+            border: none;
         }
     </style>
 </head>
@@ -182,6 +212,8 @@
     <div class="content">
         <input type="text" id="test">
         <input type="button" id="button" value="button is here">
+        <div id="code" contenteditable>
+        </div>
     </div>
 
 </body>
