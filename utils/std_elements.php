@@ -3,9 +3,15 @@
 <head>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
     <script type="text/javascript">
+    /**A php snippet to check if user logged in or not,to be added later**/
+    var s=true;
     $(document).ready(function(){
+        if(s){
+            $("#logcred").css("visibility","hidden");
+        }
         $("#login_nav").click(function(){
-            $("#logcred").fadeToggle().css("position","fixed");
+            $("#logcred").css("visibility","visible");
+            $("#logcred").css("position","fixed").fadeToggle(500);
         });
     });
     </script>
