@@ -11,7 +11,7 @@
     var s=true;
     $(document).ready(function(){
         if(s){
-            $("#logcred").css("visibility","hidden");
+            $("#logcred").hide();
         }
         $("#login_nav").click(function(){
             document.getElementById("errorMsg").innerHTML='';
@@ -19,24 +19,37 @@
             $("#logcred").css("visibility","visible");
             $("#logcred").css("position","fixed").fadeToggle(500);  
         });
-        $("#button").click(function(){
-            $(this).removeAttr("contenteditable");
-            alert($("#code").val());
-        });
+
+        /**************Handling text editor**********************/
+        function numbreaks(str){
+            var i=0;
+        	var breaks=0;
+        	while(i<str.length){
+        		var index=str.indexOf('<br>',i);
+        		if(index>=i){
+        			breaks++;
+        			i=index;
+        		}
+        		else
+        			break;
+        	}
+        	return breaks;
+        }
+        var line=1;
+        $(".code #line").append("<span class='number' id='line1'>1</span>");
+    	$(".code #code").on("keypress",function(event){
+    		if(event.keyCode==13){
+    			line++;
+    			$(".code #line").append("<span class='number' id='line"+line+"'>"+line+"</span>");
+    		}
+    		else if(event.keyCode==8){
+
+    		}
+    	});
+    	/**************Handling text editor**********************/
     });
     </script>
     <style>
-        @font-face {
-            font-family: 'notcouriersansbold';
-            src: url('stylesheets/code_text/NotCourierSans-Bold-webfont.eot');
-            src: url('stylesheets/code_text/NotCourierSans-Bold-webfont.eot?#iefix') format('embedded-opentype'),
-                 url('stylesheets/code_text/NotCourierSans-Bold-webfont.woff') format('woff'),
-                 url('stylesheets/code_text/NotCourierSans-Bold-webfont.ttf') format('truetype'),
-                 url('stylesheets/code_text/NotCourierSans-Bold-webfont.svg#notcouriersansbold') format('svg');
-            font-weight: normal;
-            font-style: normal;
-        }
-
         body{
             margin: 0;
             background: #eaeaea;
@@ -166,28 +179,77 @@
             display: block;
         }
         .content{
-            position: absolute;
-            margin-top: 3.3em;
-            width: 99%;
-            height: 100%;
+        	position: absolute;
+            margin: 3em auto auto 0.5%;
+            width: 97.7%;
+            height: 500%;
+            display: block;
+            padding: 0.5em;
+            border: solid black 1px;
         }
-        .content #code{
-            margin: 1em auto;
+        .content .contentHeader{
+        	position: relative;
+        	padding: 0.5em;
+		}
+
+        @font-face {
+            font-family: 'notcouriersansbold';
+            src: url('stylesheets/code_text/NotCourierSans-Bold-webfont.eot');
+            src: url('stylesheets/code_text/NotCourierSans-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+                 url('stylesheets/code_text/NotCourierSans-Bold-webfont.woff') format('woff'),
+                 url('stylesheets/code_text/NotCourierSans-Bold-webfont.ttf') format('truetype'),
+                 url('stylesheets/code_text/NotCourierSans-Bold-webfont.svg#notcouriersansbold') format('svg');
+            font-weight: 100;
+            font-style: normal;
+        }
+        .content .code{
+        	position: relative;
+        	padding: 0.5em;
+        	margin-bottom: 1em;
+            height: 100%;
+        	font-family: 'notcouriersansbold';
+        }
+        .content .code #line{
+        	float: left;
+        	padding: 0 1em 0 0.4em;
+        	margin-left: 12.5%;
+            overflow: hidden;
+        	width: 1.5em;
+            height: 73.5em;
+            max-height: 73.5em;
+        	-moz-box-shadow:    0 0 5px 2px #87aada;
+            -webkit-box-shadow: 0 0 5px 2px #87aada;
+            box-shadow:         0 0 5px 2px #87aada;
+            background: linear-gradient(90deg,rgba(10,10,10,1) 0,rgba(142,143,143,1) 80%,rgba(150,150,150,1) 100%);
+            cursor: default;
+        }
+        #line .number{
+        	display: block;
+        }
+        .content .code .number{
+        	font-family: 'notcouriersansbold';
+            font-size: 1em;
+            font-weight: 100;
+        	text-align: left;
+        	color: rgb(200,200,200);
+        	font-style: italic;
+        }
+        .content .code #code{
             overflow: auto;
             width: 70%;
-            height: 60em;
-            max-height: 60em;
-            padding: 1em; 
+            padding-left: 1em;
+            height: 73.5em;
+            max-height: 73.5em;
             font-family: 'notcouriersansbold';
             font-size: 1em;
             font-weight: 100;
             text-shadow: -1px 0 1px #a59f9f;
-            background: #d5d8e1;
+            letter-spacing: 1px;
+            text-align: left;
+            background: #f0f3f6;
             -moz-box-shadow:    0 0 5px 2px #87aada;
             -webkit-box-shadow: 0 0 5px 2px #87aada;
             box-shadow:         0 0 5px 2px #87aada;
-            letter-spacing: 1px;
-            border: none;
         }
     </style>
 </head>
@@ -208,12 +270,16 @@
         <div id="4" class="navlinks nav"><a href="#">Link</a></div><span class="dot">.</span>
         <div id="5" class="navlinks nav"><a href="#">Link</a></div>
         <div id="login_nav" class="navlinks nav"><a href="#">Login</a></div>
-    </div> 
+    </div>
     <div class="content">
-        <input type="text" id="test">
-        <input type="button" id="button" value="button is here">
-        <div id="code" contenteditable>
+    	<div class="contentHeader">
+        	<input type="text" id="test">
+        	<input type="button" id="button" value="button is here">
         </div>
+    	<div class="code">
+    		<div id="line"></div>
+    		<div id="code" contenteditable></div>
+    	</div>
     </div>
 
 </body>
