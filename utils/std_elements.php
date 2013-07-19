@@ -283,8 +283,17 @@
             font-size: 1em;
             font-weight: 100;
         	text-align: left;
-        	color: rgb(200,200,200);
+        	color: #c7c7bd;
         	font-style: italic;
+        	width: 3em;
+        	margin-left: -0.4em;
+        	transition: background 0.5s,color 0.5s;
+            -ms-transition: background 0.5s,color 0.5s;
+            -webkit-transition: background 0.5s,color 0.5s;
+        }
+        .content .code .number:hover{
+        	background: #eae415;
+        	color:  #44423c;
         }
         .content .code #code{
             overflow: auto;
