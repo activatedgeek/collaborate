@@ -2,6 +2,7 @@
 
 <html>
 <head>
+	<meta charset="UTF-8">
     <script src="//use.edgefonts.net/poiret-one.js"></script>
     <script src="//use.edgefonts.net/miama:n4.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
@@ -17,36 +18,86 @@
             document.getElementById("errorMsg").innerHTML='';
             $("#id").val('');
             $("#logcred").css("visibility","visible");
-            $("#logcred").css("position","fixed").fadeToggle(500);  
+            $("#logcred").css("position","fixed").fadeToggle(500);
         });
 
         /**************Handling text editor**********************/
-        function numbreaks(str){
-            var i=0;
-        	var breaks=0;
-        	while(i<str.length){
-        		var index=str.indexOf('<br>',i);
-        		if(index>=i){
-        			breaks++;
-        			i=index;
-        		}
-        		else
-        			break;
-        	}
-        	return breaks;
-        }
         var line=1;
-        $(".code #line").append("<span class='number' id='line1'>1</span>");
-    	$(".code #code").on("keypress",function(event){
-    		if(event.keyCode==13){
-    			line++;
-    			$(".code #line").append("<span class='number' id='line"+line+"'>"+line+"</span>");
+		var res_back=0;
+		var ctrlkey=false;
+        $("#code").keypress(function(event){
+        	if(event.keyCode==13){ //enter key
+        		line++;
+        		$("#line").append("<span class='number' id='line_"+line+"'>"+line+"</span>");
+        		$("#line_"+line).hide().fadeIn(250);
+        	}
+        	
+        	//While the backspace or delete key is pressed, keep updating lines
+        	else if(event.keyCode==8 || event.keyCode==46){ //backspace or delete key
+        			$.post("utils/line_check.php",{code: $(this).html()},function(data,status){
+    					if(status=='success'){
+    						res_back = data.split(" ");
+    					}
+        				if(line!=1 && res_back[0]==(line-1)){
+        					$("#line_"+line).fadeOut(250,function(){$(this).remove();});
+    						line--;
+    					}
+        			});
     		}
-    		else if(event.keyCode==8){
+    		
+        });
+        $("#code").keyup(function(event){
+        	//To handle mass delete of code
+        	if((event.keyCode==8)  || (event.keyCode>=46 && event.keyCode<=90) || (event.keyCode>=96 && event.keyCode<=111) || (event.keyCode>=186 && event.keyCode<=192) || (event.keyCode>=219 && event.keyCode<=222) ){
+        		if($(this).html()=='<br>'){
+        			$("#line_1").siblings().fadeOut(250,function(){$("#line_1").siblings().remove();});
+        			line=1;
+        			return;
+        		}
+        		$.post("utils/line_check.php",{code: $(this).html()},function(data,status){
+    					if(status=='success'){
+    						res_back = data.split(" ");
+    					}
+    					var diff=line-res_back[0];
+    					if(diff>0){
+    						var id = $("#line_1").siblings(":last").attr("id");
+    						id = id.split("_");
+    						id[1] -=diff;
+    						id = '#'+id.join("_");
+    						$(id).nextAll().fadeOut(250,function(){$(id).nextAll().remove();});
+    						line = line-diff;
+    					}
+        			});
+        	}
+        	//To handle code pastes
+        	if(event.keyCode==86 && ctrlkey){
+        		$.post("utils/line_check.php",{code: $(this).html()},function(data,status){
+    					if(status=='success'){
+    						res_back = data.split(" ");
+    					}
+    					var diff = res_back[0] - line;
+    					if(diff>0){
+    						//diff++;
+    						for(var i=0;i<diff;i++){
+    							line++;
+				        		$("#line").append("<span class='number' id='line_"+line+"'>"+line+"</span>");
+        						$("#line_"+line).hide().fadeIn(250);
+    						}
 
-    		}
-    	});
-    	/**************Handling text editor**********************/
+    					}
+    					ctrlkey=false;
+        			});
+        	}
+        	if(event.ctrlKey){
+        		ctrlkey=false;
+        	}
+
+        });
+        $("#code").keydown(function(event){
+        	if(event.ctrlKey)
+        		ctrlkey=true;
+        });
+        /**************Handling text editor**********************/
     });
     </script>
     <style>
@@ -209,6 +260,7 @@
             height: 100%;
         	font-family: 'notcouriersansbold';
         }
+        
         .content .code #line{
         	float: left;
         	padding: 0 1em 0 0.4em;
@@ -243,7 +295,6 @@
             font-family: 'notcouriersansbold';
             font-size: 1em;
             font-weight: 100;
-            text-shadow: -1px 0 1px #a59f9f;
             letter-spacing: 1px;
             text-align: left;
             background: #f0f3f6;
@@ -251,6 +302,7 @@
             -webkit-box-shadow: 0 0 5px 2px #87aada;
             box-shadow:         0 0 5px 2px #87aada;
         }
+        
     </style>
 </head>
 
@@ -277,8 +329,12 @@
         	<input type="button" id="button" value="button is here">
         </div>
     	<div class="code">
-    		<div id="line"></div>
-    		<div id="code" contenteditable></div>
+    		<div id="line">
+    	<?php
+    		for($i=1;$i<=1;$i++) echo "<span class='number' id='line_$i'>$i</span>";
+    	?>	
+    		</div>
+    		<div id="code" contenteditable><br></div>
     	</div>
     </div>
 
