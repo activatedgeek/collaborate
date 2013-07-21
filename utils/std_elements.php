@@ -2,7 +2,8 @@
 
 <html>
 <head>
-	<meta charset="UTF-8">
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Type" content="text/html">
     <script src="//use.edgefonts.net/poiret-one.js"></script>
     <script src="//use.edgefonts.net/miama:n4.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
@@ -17,10 +18,8 @@
         $("#login_nav").click(function(){
             document.getElementById("errorMsg").innerHTML='';
             $("#id").val('');
-            $("#logcred").css("visibility","visible");
             $("#logcred").css("position","fixed").fadeToggle(500);
         });
-
         /**************Handling text editor**********************/
         var line=1;
 		var res_back=0;
@@ -28,8 +27,17 @@
         $("#code").keypress(function(event){
         	if(event.keyCode==13){ //enter key
         		line++;
+        		if(line>51){
+        			var h = $(this).css("height");
+        			var temp = h.split("p");
+        			temp[0] = parseInt(temp[0],10);
+        			temp[0]+=23;
+        			temp[0] = temp[0].toString();
+        			h = temp.join("p");
+        			$(this).css("height",h);
+        			$("#line").css("height",h);
+        		}
         		$("#line").append("<span class='number' id='line_"+line+"'>"+line+"</span>");
-        		$("#line_"+line).hide().fadeIn(250);
         	}
         	
         	//While the backspace or delete key is pressed, keep updating lines
@@ -39,8 +47,18 @@
     						res_back = data.split(" ");
     					}
         				if(line!=1 && res_back[0]==(line-1)){
-        					$("#line_"+line).fadeOut(250,function(){$(this).remove();});
+        					$("#line_"+line).remove();
     						line--;
+    						if(line>51){
+	    						var h = $("#code").css("height");
+			        			var temp = h.split("p");
+			        			temp[0] = parseInt(temp[0],10);
+			        			temp[0]-=23;
+			        			temp[0] = temp[0].toString();
+			        			h = temp.join("p");
+			        			$("#code").css("height",h);
+			        			$("#line").css("height",h);
+    						}
     					}
         			});
     		}
@@ -50,8 +68,10 @@
         	//To handle mass delete of code
         	if((event.keyCode==8)  || (event.keyCode>=46 && event.keyCode<=90) || (event.keyCode>=96 && event.keyCode<=111) || (event.keyCode>=186 && event.keyCode<=192) || (event.keyCode>=219 && event.keyCode<=222) ){
         		if($(this).html()=='<br>'){
-        			$("#line_1").siblings().fadeOut(250,function(){$("#line_1").siblings().remove();});
+        			$("#line_1").siblings().remove();
         			line=1;
+        			$(this).css("height","1176px");
+			        $("#line").css("height","1176px");
         			return;
         		}
         		$.post("utils/line_check.php",{code: $(this).html()},function(data,status){
@@ -64,8 +84,22 @@
     						id = id.split("_");
     						id[1] -=diff;
     						id = '#'+id.join("_");
-    						$(id).nextAll().fadeOut(250,function(){$(id).nextAll().remove();});
+    						$(id).nextAll().remove();
     						line = line-diff;
+    					}
+    					if(line>51){
+    						var h = $("#code").css("height");
+		        			var temp = h.split("p");
+		        			temp[0] = parseInt(temp[0],10);
+		        			temp[0]-= 23*diff;
+		        			temp[0] = temp[0].toString();
+		        			h = temp.join("p");
+		        			$("#code").css("height",h);
+		        			$("#line").css("height",h);
+    					}
+    					else if(line<=51){
+    						$("#code").css("height","1176px");
+		        			$("#line").css("height","1176px");
     					}
         			});
         	}
@@ -77,11 +111,22 @@
     					}
     					var diff = res_back[0] - line;
     					if(diff>0){
-    						//diff++;
+    						diff+=5; //just some extra lines
     						for(var i=0;i<diff;i++){
     							line++;
 				        		$("#line").append("<span class='number' id='line_"+line+"'>"+line+"</span>");
-        						$("#line_"+line).hide().fadeIn(250);
+				        		/*
+				        		if(line>51){
+				        			var h = $("#code").css("height");
+				        			var temp = h.split("p");
+				        			temp[0] = parseInt(temp[0],10);
+				        			temp[0]+= 23;
+				        			temp[0] = temp[0].toString();
+				        			h = temp.join("p");
+				        			$("#code").css("height",h);
+				        			$("#line").css("height",h);
+				        		}
+				        		*/
     						}
 
     					}
@@ -91,12 +136,24 @@
         	if(event.ctrlKey){
         		ctrlkey=false;
         	}
-
         });
         $("#code").keydown(function(event){
         	if(event.ctrlKey)
         		ctrlkey=true;
         });
+        /*
+        var mousewheelevt = (/Firefox/i.test(navigator.userAgent)) ? "DOMMouseScroll" : "mousewheel" //FF doesn't recognize mousewheel as of FF3.x
+		$('#code').bind(mousewheelevt, function(e){
+			var evt = window.event || e //equalize event object     
+    		evt = evt.originalEvent ? evt.originalEvent : evt; //convert to originalEvent if possible               
+    		var delta = evt.detail ? evt.detail*(-40) : evt.wheelDelta //check for detail first, because it is used by Opera and FF
+			if(delta > 0) {
+        		alert(delta);
+    		}
+    		else{
+        		alert(delta);
+    		}   
+		});*/
         /**************Handling text editor**********************/
     });
     </script>
@@ -209,7 +266,6 @@
             width: 30%;
             height: 1.7em;
             margin: 0.2em 0 1em 0.5em;
-            padding: -0.3em;
             border-style: none;
             border-radius: 0.2em;
             -moz-box-shadow:    0 0 3px 1px #87aada;
@@ -268,7 +324,6 @@
             overflow: hidden;
         	width: 1.5em;
             height: 73.5em;
-            max-height: 73.5em;
         	-moz-box-shadow:    0 0 5px 2px #87aada;
             -webkit-box-shadow: 0 0 5px 2px #87aada;
             box-shadow:         0 0 5px 2px #87aada;
@@ -300,7 +355,6 @@
             width: 70%;
             padding-left: 1em;
             height: 73.5em;
-            max-height: 73.5em;
             font-family: 'notcouriersansbold';
             font-size: 1em;
             font-weight: 100;
@@ -326,8 +380,8 @@
     </div>
     <div id="navbar">
         <div id="1" class="logo navlinks"><a href="#">Collaborate</a></div><span class="dot">.</span>
-        <div id="2" class="navlinks nav"><a href="#">Link</a></div>
-        <div id="3" class="navlinks nav"><a href="#">Link</a></div>
+        <div id="2" class="navlinks nav"><a href="#">Home</a></div>
+        <div id="3" class="navlinks nav"><a href="#">Explore</a></div>
         <div id="4" class="navlinks nav"><a href="#">Link</a></div><span class="dot">.</span>
         <div id="5" class="navlinks nav"><a href="#">Link</a></div>
         <div id="login_nav" class="navlinks nav"><a href="#">Login</a></div>
@@ -340,7 +394,9 @@
     	<div class="code">
     		<div id="line">
     	<?php
-    		for($i=1;$i<=1;$i++) echo "<span class='number' id='line_$i'>$i</span>";
+    		for($i=1;$i<=1;$i++){
+                echo "<span class='number' id='line_$i'>$i</span>";
+            }
     	?>	
     		</div>
     		<div id="code" contenteditable><br></div>
