@@ -17,7 +17,7 @@ body{
 }
 
 a.navs{
-    margin-left: auto;  
+    margin-left: auto;    
 }
 
 a.navs:link,a.navs:visited{
@@ -122,7 +122,7 @@ input.genCreds{
 #navbar .nav:hover{
     background: #9894a9;
 }
-#navbar .logo{
+.logo{
     font-family: miama, cursive;
     font-weight: bold;
     font-size: 1.5em;
@@ -135,12 +135,12 @@ input.genCreds{
     text-shadow: 0 3px 3px #303030;
     text-decoration: none;
 }
-#navbar .logo a{
+.logo a{
     transition: text-shadow 0.5s, color 0.5s;
     -ms-transition: text-shadow 0.5s, color 0.5s;
     -webkit-transition: text-shadow 0.5s, color 0.5s;
 }
-#navbar .logo a:hover{
+.logo a:hover{
     text-shadow: 0 1px 3px #333;
     color: #333131;
 }
