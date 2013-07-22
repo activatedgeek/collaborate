@@ -1,5 +1,4 @@
 <?php
-header("Expires: Mon, 25 Jul 1994 04:00:00 GMT");
 header("Cache-Control: no-cache");
 header("Pragma: no-cache");
 ?>
@@ -7,9 +6,9 @@ header("Pragma: no-cache");
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8"></meta>
   <title>Collaborate</title>
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+  <script src="js/jquery.js"></script>
   <link rel="shortcut icon" href="http://localhost/collaborate/icons/collaborate.ico">
 <?php
     echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"stylesheets/".basename(__FILE__,'.php').".css\">";
@@ -20,12 +19,12 @@ header("Pragma: no-cache");
 </head>
 
 <body>
-  <div><a class="navs" href="signup.php" target="_parent">Join</a></div>
+  <div><input id="join" type="button" class="navs linkButton" value="Join"/></div>
   <div id="loginCreds">
     <form>
-      <input id="id" type="text" placeholder="$_GET ID"/></br>
-      <input id="pass" type="password" placeholder="$_GET PASSWORD"/></br>
-      <input type="button" id="send" class="enter" value="  Program!  " onclick="sendCreds()"/>
+      <input class="genCreds" id="id" type="text" placeholder="Enter a valid username"/></br>
+      <input class="genCreds" id="pass" type="password" placeholder="Enter a valid password"/></br>
+      <input type="button" class="generalButton enter" id="send" value="  Program!  " onclick="sendCreds()"/>
     </form>
   <div id="errorMsg"></div>
   </div>
