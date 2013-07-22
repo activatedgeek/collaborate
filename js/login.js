@@ -1,13 +1,19 @@
-function sendCreds(){
-var user = document.getElementById("id").value;
-var pass = document.getElementById("pass").value;
+$(document).ready(function(){
+	$("#join").click(function(){
+		window.open("http://localhost/collaborate/signup.php","_parent",true);
+	});
+});
 
-if(user=="" || pass==""){
+function sendCreds(){
+var user = $("#id").val();
+var pass = $("#pass").val();
+if(user=='' || pass==''){
+  $("#id").css({"border-color":"red","borderWidth":"3px"});
+  $("#pass").css({"border-color":"red","borderWidth":"3px"});
   document.getElementById("errorMsg").innerHTML = "Error! Please Check your Username or(and) Password";
-  document.getElementById("id").style.borderColor = "Red";
-  document.getElementById("pass").style.borderColor = "Red";
-  document.getElementById("id").value = "";
-  document.getElementById("pass").value = "";
+  $("#errorMsg").fadeIn().fadeOut(2000);
+  document.getElementById("id").innerHTML = "";
+  document.getElementById("pass").innerHTML = "";
 }
 else{
   document.getElementById("id").style.borderColor = "";
@@ -17,36 +23,17 @@ else{
   $.post("accounts/validate.php",{user: user, pass: pass},
 	 function(data,status){
 	  if(status=='success' && data=='OK')
-	    window.open("test.php","_parent",true);
+	    window.open("http://localhost/collaborate/canvas.php","_parent",true);
 	  else if(status=='success' && data=='DENY'){
-	    document.getElementById("errorMsg").innerHTML = "Error! Please Check your Username or(and) Password";
-	    document.getElementById("id").style.borderColor = "Red";
-	    document.getElementById("pass").style.borderColor = "Red";
-	    document.getElementById("pass").value = "";
+	    $("#id").css({"border-color":"red","borderWidth":"3px"});
+		$("#pass").css({"border-color":"red","borderWidth":"3px"});
+		document.getElementById("errorMsg").innerHTML = "Error! Please Check your Username or(and) Password";
+		$("#errorMsg").fadeIn().fadeOut(2000);
+		$("#pass").val("");
 	  }
 	  else
 	    alert(status);
 	  });
-  //AJAX
-  /*
-  var validate=new XMLHttpRequest();
-  validate.onreadystatechange=function(){
-    if (validate.readyState==4 && validate.status==200 && validate.responseText == 'OK'){
-      window.open("test.php","_parent",true);
-    }
-    else if(validate.responseText == 'DENY'){
-      document.getElementById("errorMsg").innerHTML = "Error! Please Check your Username or(and) Password";
-      document.getElementById("id").style.borderColor = "Red";
-      document.getElementById("pass").style.borderColor = "Red";
-      document.getElementById("pass").value = "";
-    }
-  }
-	  
-  params="user="+encodeURIComponent(user)+"&pass="+encodeURIComponent(pass);
-  validate.open("POST","accounts/validate.php",true);
-  validate.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-  validate.send(params);
-  */
 }
 
 }
