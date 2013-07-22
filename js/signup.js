@@ -1,3 +1,10 @@
+$(document).ready(function(){
+    var login = document.getElementById("login");
+    login.onclick = function(){
+        window.open("http://localhost/collaborate/login.php","_parent",true);
+    };
+});
+
 var firstName,lastName ,username,email,password,pass_repeat;
 
 function getDetails(){
@@ -28,26 +35,6 @@ function uniqueUsername(){
                     return false;
                 }
             });
-        
-        /*
-        //AJAX POST
-        
-        var edit = new XMLHttpRequest();
-        edit.onreadystatechange=function(){
-        if (edit.readyState==4 && edit.status==200 && edit.responseText=='OK'){
-            document.getElementById("username").style.borderColor = "Green";
-            return true;
-            }
-        else{
-            document.getElementById("username").style.borderColor = "Red";
-            return false;
-            }
-        }
-        var params = "username="+encodeURIComponent(username);
-        edit.open("POST","accounts/unique.php",true);
-        edit.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        edit.send(params);
-        */
     }
     else if(username.length<4 && username!=""){
         document.getElementById("username").style.borderColor = "Red";
@@ -152,17 +139,5 @@ function signup(){
                     else
                         alert(data);
                 });
-            /*
-           var setup = new XMLHttpRequest();
-           setup.onreadystatechange= function(){
-                if(setup.readyState==4 && setup.status==200){
-                    window.open("test.php","_parent",true);
-                }
-           }
-            var params = "firstName="+encodeURIComponent(firstName)+"&lastName="+encodeURIComponent(lastName)+"&username="+encodeURIComponent(username)+"&email="+encodeURIComponent(email)+"&password="+encodeURIComponent(password);
-            setup.open("POST","accounts/setup.php",false);
-            setup.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            setup.send(params);
-            */
         }
 }
