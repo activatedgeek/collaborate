@@ -22,8 +22,11 @@ else{
   //jQuery AJAX POST
   $.post("accounts/validate.php",{user: user, pass: pass},
 	 function(data,status){
-	  if(status=='success' && data=='OK')
-	    window.open("http://localhost/collaborate/canvas.php","_parent",true);
+	 	var d = data.split(" ");
+	  if(status=='success' && d[0]=='OK'){
+	  	var url = "http://localhost/collaborate/canvas.php?id="+d[1];
+	    window.open(url,"_parent",true);
+	}
 	  else if(status=='success' && data=='DENY'){
 	    $("#id").css({"border-color":"red","borderWidth":"3px"});
 		$("#pass").css({"border-color":"red","borderWidth":"3px"});
