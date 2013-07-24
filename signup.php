@@ -2,8 +2,9 @@
 header("Expires: Mon, 25 Jul 1994 04:00:00 GMT");
 header("Cache-Control: no-cache");
 header("Pragma: no-cache");
-if(isset($_SESSION['user'])){
-  header('Location: http://localhost/collaborate/canvas.php');
+session_start();
+if($_SESSION['user']){
+  header('Location: http://localhost/collaborate/canvas.php?id='.$_SESSION['user']);
 }
 ?>
 
