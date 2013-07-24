@@ -1,6 +1,10 @@
 <?php
 header("Cache-Control: no-cache");
 header("Pragma: no-cache");
+session_start();
+if($_SESSION['user']){
+  header('Location: http://localhost/collaborate/canvas.php?id='.$_SESSION['user']);
+}
 ?>
 
 <!DOCTYPE html>
