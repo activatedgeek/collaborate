@@ -1,0 +1,73 @@
+#details{
+  position: absolute;
+	margin-top: 3.5em;
+	width: 99.9%;
+	background: white;
+}
+#subcall{
+	font-family: poiret-one, sans-serif;
+	font-weight: bolder;
+	font-size: 1.5em;
+}
+#field_title{
+	margin-left: 10%;
+	font-family: poiret-one, sans-serif;
+	font-weight: bolder;
+	font-size: 2em;
+	text-transform: uppercase;
+	text-decoration: underline; 
+}
+.details{
+	width: 98%;
+	margin: 1em;
+	-moz-box-shadow:    0 0 3px 3px #5c5d63;
+    -webkit-box-shadow: 0 0 3px 3px #5c5d63;
+    box-shadow:         0 0 3px 3px #5c5d63;
+}
+.details td{
+	margin-bottom: 0.5em;
+}
+.subdetails{
+	width: 10em;
+	font-family: poiret-one, sans-serif;
+	font-weight: bolder;
+	font-size: 2em;
+	color: gray;
+}
+table textarea{
+	resize: none;
+	width: 98%;
+	height: 15em;
+	padding: 0.3em;
+	font-family: poiret-one, sans-serif;
+	font-weight: bolder;
+	font-size: 1.5em;
+	border: none;
+	background: #eaeaea;
+}
+input.genCreds{
+	width: 30em;
+	font-family: poiret-one, sans-serif;
+	font-weight: bolder;
+	font-size: 2em;
+}
+span#default_due{
+	display: block;
+	text-align: center;
+	width: 100%;
+	color: green;
+	font-family: poiret-one, sans-serif;
+	font-weight: bold;
+	font-size: 1.5em;
+}
+span.radio{
+	font-family: poiret-one, sans-serif;
+	font-weight: bolder;
+	font-size: 2em;
+}
+#create{
+	margin-left: 40%;
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+	font-size: 2em;
+}
