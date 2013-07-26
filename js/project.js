@@ -3,10 +3,21 @@ var desc;
 var due;
 var type;
 $(document).ready(function(){
-  $("#create").click(function(){
+	$("#create").click(function(){
 		if(valid()){
-			window.open("http://localhost/collaborate/utils/new.php?type=project","_parent");
+			$.post("accounts/new_object.php",{object: "project",title: title,desc: desc,due: due,type: type},function(data,status){
+				if(status=='success'){
+					window.open("http://localhost/collaborate/canvas.php","_parent");
+				}
+			});
 		}
+	});
+	$("#logout").click(function(){
+		$.post("utils/destroy.php",{type: "session"},function(data,status){
+			if(status=='success'){
+				window.open("http://localhost/collaborate/login.php","_parent");
+			}
+		})
 	});
 });
 
@@ -19,27 +30,29 @@ function valid(){
 		$("#title").css("border","solid red 2px");
 		return false;
 	}
-	var c = checkdate();
-	if(c==1){
-		$("#due").css("border","solid red 2px");
-		$("#default_due").hide().css("color","red").fadeIn(1000).text("This is not a valid date format!");
-		return false;
-	}else if(c==2){
-		$("#due").css("border","solid red 2px");
-		$("#default_due").hide().css("color","red").fadeIn(1000).text("These are non-parseable date parameters");
-		return false;
-	}else if(c==3){
-		$("#due").css("border","solid red 2px");
-		$("#default_due").hide().css("color","red").fadeIn(1000).text("This date has already passed!");
-		return false;
-	}else if(c==4){
-		$("#due").css("border","solid red 2px");
-		$("#default_due").hide().css("color","red").fadeIn(1000).text("You cannot increase the days in this month!");
-		return false;
-	}else if(c==5){
-		$("#due").css("border","none");
-		$("#default_due").hide().css("color","green").fadeIn(1000).text("Way to go!");
-		return true;
+	if(due!=''){
+		var c = checkdate();
+		if(c==1){
+			$("#due").css("border","solid red 2px");
+			$("#default_due").hide().css("color","red").fadeIn(1000).text("This is not a valid date format!");
+			return false;
+		}else if(c==2){
+			$("#due").css("border","solid red 2px");
+			$("#default_due").hide().css("color","red").fadeIn(1000).text("These are non-parseable date parameters");
+			return false;
+		}else if(c==3){
+			$("#due").css("border","solid red 2px");
+			$("#default_due").hide().css("color","red").fadeIn(1000).text("This date has already passed!");
+			return false;
+		}else if(c==4){
+			$("#due").css("border","solid red 2px");
+			$("#default_due").hide().css("color","red").fadeIn(1000).text("You cannot increase the days in this month!");
+			return false;
+		}else if(c==5){
+			$("#due").css("border","none");
+			$("#default_due").hide().css("color","green").fadeIn(1000).text("Way to go!");
+			return true;
+		}
 	}
 	return true;
 }
