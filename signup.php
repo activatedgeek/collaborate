@@ -3,7 +3,7 @@ header("Expires: Mon, 25 Jul 1994 04:00:00 GMT");
 header("Cache-Control: no-cache");
 header("Pragma: no-cache");
 session_start();
-if($_SESSION['user']){
+if(isset($_SESSION['user'])){
   header('Location: http://localhost/collaborate/canvas.php?id='.$_SESSION['user']);
 }
 ?>
@@ -58,6 +58,16 @@ if($_SESSION['user']){
         <td class="details">Re-enter Password</td>
         <td class="details">==</td>
         <td class="details"><input class="genCreds" type="password" placeholder="Re-enter Password" onkeyup="checkDetails()" id="pass_repeat"/></td>
+    </tr>
+    <tr>
+        <td class="details">Programavatar</td>
+        <td class="details">==</td>
+        <td class="details">
+            <form enctype="multipart/form-data" action="utils/uploader.php" method="POST">
+            <input class="genCreds generalButton" name="avatar_blob" type="file" id="avatar_blob" value="Choose Programavatar" accept="image/*"/>
+            <input id="upload_blob" class="generalButton" type="submit" value="Set Avatar"><span id="reset">Clear Uploaded File</span>
+            </form>
+        </td>
     </tr>
     </table>
     <input class="signup generalButton" type="button" value="    Join!    " onclick="signup()"/>
