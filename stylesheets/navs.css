@@ -17,7 +17,7 @@ body{
 }
 
 a.navs{
-    margin-left: auto;    
+    margin-left: auto;	
 }
 
 a.navs:link,a.navs:visited{
@@ -75,6 +75,9 @@ input.genCreds{
     -moz-box-shadow:    inset 0 3px 3px #5c5d63;
     -webkit-box-shadow: inset 0 3px 3px #5c5d63;
     box-shadow:         inset 0 3px 3px #5c5d63;
+}
+input:focus{
+	background-color: #edc951;
 }
 /**************Standard Input Theme***********/
 
@@ -157,6 +160,12 @@ input.genCreds{
     -webkit-box-shadow: 0 0 10px 3px #5c5d63;
     box-shadow:         0 0 10px 3px #5c5d63;
 }
+#logout{
+	display: inline-block !important;
+	color: rgb(241, 240, 240);
+	text-shadow: 0px 3px 3px rgb(48, 48, 48);
+	width: 5em;
+}
 /***************Common Nav Bar on every page*****************/
 
 /****Footer****/
@@ -198,7 +207,3 @@ input.genCreds{
     color: #333131;
 }
 /****Footer****/
-
-input:focus{
-	background-color: #edc951;
-}
