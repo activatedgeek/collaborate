@@ -3,7 +3,6 @@
         <div id="home" class="navlinks nav"><a href="http://localhost/collaborate/canvas.php">Home</a></div>
         <div id="explore" class="navlinks nav"><a href="#">Explore</a></div>
         <div class="navlinks nav"><a href="#">Link</a></div><span class="dot">.</span>
-        <div class="navlinks nav"><a href="#">Link</a></div>
         <div id="user" class="navlinks nav"><a href="http://localhost/collaborate/canvas.php"><span id="img_blob">
         <?php 
                 if($row['avatar']==NULL){
@@ -12,5 +11,6 @@
         	else
         		echo "<img src='data:image/jpeg;base64,",base64_encode($row['avatar']),"' width='40' height='40'></img>";
         ?>
-        </span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span><?php echo $row['username']; ?></span></a></div>
+        </span><span id="username">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<?php echo $row['username']; ?></span></a></div>
+        <div class="navlinks nav" id="logout">Log Out</div>
 </div>
