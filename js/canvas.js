@@ -1,19 +1,41 @@
+var act=false;
+var proj=false;
+var com=false;
+var iss=false;
 $(document).ready(function(){
-  /*****Datalink Click UI changes********/
-
+	/*****Datalink Click UI changes********/
 	//Checking scroll, fixing the databar after certain threshold
+	/*
 	$(window).bind("scroll",function(){
-		if($(this).scrollTop()>260)
+		if($(this).scrollTop()>260){
 		 	$("#databar").css({"position":"absolute","margin-top":"4em"});
+		}
 		else{
 			$("#databar").css({"position":"static","margin-top": "1em"});
 		}
 	});
-	
-	var act=false;
-	var proj=false;
-	var com=false;
-	var iss=false;
+	*/
+	/**Session end***/
+	$("#logout").click(function(){
+		$.post("utils/destroy.php",{type: "session"},function(data,status){
+			if(status=='success'){
+				window.open("http://localhost/collaborate/login.php","_parent");
+			}
+		})
+	});
+	/**Session end***/
+	/****************Delete projects from canvas******************/
+	$(".delete").click(function(){
+		$.post("utils/destroy.php",{type: "project", title: $(this).attr("id")},function(data,status){
+			if(status=='success'){
+				window.open("http://localhost/collaborate/canvas.php","_parent");
+			}
+		});
+	});
+	/****************Delete projects from canvas******************/
+	$("#newProj,#newProject_null").click(function(){
+		window.open("http://localhost/collaborate/project.php?type=New","_parent");
+	});
 	//Hover changes
 	$("#activity").hover(function(){
 		if(!act)
@@ -67,7 +89,7 @@ $(document).ready(function(){
 		proj=false;
 		com=true;
 		iss=false;
-		$(this).css({"border-bottom":"solid cc6c00 3px","border-top":"solid #cc6c00 3px","color":"#cc6c00"});
+		$(this).css({"border-bottom":"solid #cc6c00 3px","border-top":"solid #cc6c00 3px","color":"#cc6c00"});
 		$(this).prevAll().css({"border-bottom":"solid gray 3px","border-top":"solid gray 3px","color":"gray"});
 		$(this).nextAll().css({"border-bottom":"solid gray 3px","border-top":"solid gray 3px","color":"gray"});
 	});
@@ -80,4 +102,7 @@ $(document).ready(function(){
 		$(this).prevAll().css({"border-bottom":"solid gray 3px","border-top":"solid gray 3px","color":"gray"});
 	});
 	/*****Datalink Click UI changes********/
+	$(".title").click(function(){
+		window.open("http://localhost//collaborate/project.php?title="+$(this).text(),"_parent");
+	});
 });
