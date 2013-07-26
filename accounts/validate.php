@@ -8,7 +8,7 @@ if(!$con){
 }
 $user = $_POST['user'];
 $pass = $_POST['pass'];
-$query = "SELECT password FROM user WHERE username='".$user."'";
+$query = "SELECT user_id AS id,password FROM user WHERE username='".$user."'";
 $pass = hash("sha512", $pass, false);
 $result = mysqli_query($con, $query);
 if (!$result)
@@ -19,7 +19,7 @@ if (!$result)
 }
 while($row = mysqli_fetch_array($result)){
     if($row['password'] == $pass){
-        $resp = 'OK';
+        $resp = 'OK '.$row['id'];
         mysqli_close($con);
         echo $resp;
         return;
