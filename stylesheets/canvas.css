@@ -1,5 +1,5 @@
 body{
-  overflow: auto !important;
+	overflow: auto !important;
 }
 .usercontent{
 	position: absolute;
@@ -19,6 +19,7 @@ body{
     background: #cadbf8;
     border-radius: 5px;
     border: none;
+    background: linear-gradient(rgb(255,255,255) 50%,rgb(219,211,211) 100%);
 }
 #profile #profile_blob{
     position: relative;
@@ -33,7 +34,7 @@ body{
 	height: 222px;
 	font-family: poiret-one, sans-serif;
 	font-weight: bolder;
-	font-size: 1.5em;
+	font-size: 2.5em;
 	width: inherit;
 	cursor: default;
 }
@@ -54,7 +55,7 @@ body{
 	font-family: poiret-one, sans-serif;
 	font-weight: bolder;
 	width: 25%;
-	font-size: 1.5em;
+	font-size: 1.75em;
 	text-align: center;
 	background: linear-gradient(rgb(237,239,241) 20%, rgb(210,215,221) 50%, rgb(165,167,168) 80%,rgb(237,239,241) 100%);
 	cursor: pointer;
@@ -68,6 +69,80 @@ body{
     -webkit-transition: border-bottom 0.5s,border-top 0.5s,color 0.5s;
 }
 #datalinks_related{
-	border: solid black 1px;
-	height: 40em;
+	margin-top: 0.5em;
+	padding: 0.5em;
+	-moz-box-shadow:    0 0 10px 3px #5c5d63;
+    -webkit-box-shadow: 0 0 10px 3px #5c5d63;
+    box-shadow:         0 0 10px 3px #5c5d63;
+}
+.no_data{
+	display: block;
+	font-family: poiret-one, sans-serif;
+	font-weight: bolder;
+	font-size: 3em;
+	text-align: center;
+	margin: 0;
+	padding: 0;
+	color: gray;
+	margin-left: 2.5%;
+}
+#newProject_null{
+	display: block;
+	font-size: 2em;
+	margin-top: 0.5em;
+	margin-left: 40%;
+}
+#newProj{
+	display: block;
+	font-size: 2em;
+	margin-left: 40%;
+}
+/*Projects*/
+table.p_block{
+	width: 99%;
+	margin: 0.5em;
+	padding: 0.5em;
+	background: linear-gradient(rgb(255,255,255) 10%,rgb(219,211,211) 100%);
+}
+td.title{
+	font-family: poiret-one, sans-serif;
+	font-size: 3em;
+	color: #453f3f;
+	transition: color 0.5s,text-decoration 0.5s;
+    -ms-transition: color 0.5s,text-decoration 0.5s;
+    -webkit-transition: color 0.5s,text-decoration 0.5s;
+}
+td.title:hover{
+	color: blue;
+	text-decoration: underline;
+	cursor: pointer;
+}
+td.desc, span.due_data,td.created{
+	font-family: poiret-one, sans-serif;
+	font-weight: bold;
+	font-size: 1.5em;
+}
+td.desc,td.created{
+	color: gray;
+}
+td.desc{
+	width: 20em;
+}
+td.desc + td{
+	width: 25em;	
+}
+.delete{
+	display: block;
+	width: 100%;
+	text-align: right !important;
+	color: red;
+	/*font-family: poiret-one, sans-serif;*/
+	font-size: 0.75em;
+	cursor: pointer;
+	transition: text-decoration 0.5s;
+    -ms-transition: text-decoration 0.5s;
+    -webkit-transition: text-decoration 0.5s;
+}
+.delete:hover{
+	text-decoration: underline;
 }
