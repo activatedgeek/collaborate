@@ -1,6 +1,11 @@
 <?php
 session_start();
-$_SESSION['user']=$_GET['id'];
+if(isset($_GET['id'])){
+	$_SESSION['user']=$_GET['id'];
+}
+else if(!isset($_SESSION['user'])){
+	header('Location: http://localhost/collaborate/login.php');
+}
 $con = mysqli_connect("localhost","root","123","collaborate");
 	if(!$con){
 	    echo "Could not connect to DB server";
@@ -15,6 +20,7 @@ $con = mysqli_connect("localhost","root","123","collaborate");
 	    //return;
 	}
 $row = mysqli_fetch_array($result);
+
 ?>
 
 <!DOCTYPE html>
@@ -93,7 +99,7 @@ $row = mysqli_fetch_array($result);
 	  				};
   				</script>
   				<?php 	if($count['nums']==0){
-  							echo "<span class='no_data'>You have no projects added yet!</span>","<input class='linkButton' id='newProject_null' type='button' value='Start New Project'/>";
+  							echo "<span class='no_data'>You have no projects added yet!</span>";
   						}
   					else{
   						$query = "SELECT title,description AS des,DATE(created) AS created,DATEDIFF(due_date,NOW()) AS due FROM project WHERE user_id =".$_SESSION['user']." ORDER BY due";
@@ -105,7 +111,7 @@ $row = mysqli_fetch_array($result);
   						}
   						while($row=mysqli_fetch_array($result)){
   							$create = date_create_from_format('Y-m-d',$row['created']);
-  							echo "<table class='p_block'><tr><td class='title'>",$row['title'],"</td></tr>";
+  							echo "<table class='p_block'><tr><td class='title'>",$row['title'],"</td><td></td><td><span class='delete' id='",$row['title'],"'>DELETE</span></td></tr>";
   							echo "<tr><td class='desc'>",$row['des'],"</td><td>";
   							if($row['due']<0){
   								echo "<span  class='due_data' style='color:red'>Deadline passed ",-$row['due']," day(s) ago</span>";
