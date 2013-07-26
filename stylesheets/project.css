@@ -1,5 +1,7 @@
 #details{
-  position: absolute;
+	font-family: poiret-one, sans-serif;
+	/*text-align: center;*/
+	position: absolute;
 	margin-top: 3.5em;
 	width: 99.9%;
 	background: white;
@@ -71,3 +73,61 @@ span.radio{
 	margin-bottom: 0.5em;
 	font-size: 2em;
 }
+
+/***Project details***/
+#p_details{
+	padding: 0.5em;
+	background: linear-gradient(rgb(255,255,255) 50%,rgb(219,211,211) 100%);
+	margin-bottom: 0.5em;
+	-moz-box-shadow:    0 0 3px 3px #5c5d63;
+    -webkit-box-shadow: 0 0 3px 3px #5c5d63;
+    box-shadow:         0 0 3px 3px #5c5d63;
+}
+.type{
+	font-size: 1em;
+}
+#title{
+	font-size: 2.5em;
+	font-weight: bold;
+}
+#project td{
+	width: 25em;
+	color: gray;
+	font-size: 1.5em;
+}
+.created{
+	font-weight: bold;
+}
+#p_directory{
+	background: linear-gradient(rgba(10,10,10,1) 0,rgba(142,143,143,1) 80%,rgba(150,150,150,1) 100%);
+	height: 3em;
+	padding: 0.3em;
+	cursor: default;
+}
+#dir{
+	color: white;
+	font-size: 2em;
+	padding: 0.3em;
+	margin: auto;
+	cursor: pointer;
+}
+#all_file{
+	float: right;
+	color: white;
+	font-size: 2em;
+
+}
+#new_file{
+	font-size: 2em;
+	margin: 0.5em;
+	margin-left: 42.3%;
+}
+.null_data{
+	display: block;
+	width: 100%;
+	margin: auto;
+	text-align: center;
+	color: gray;
+	font-size: 2em;
+}
+/***Project details***/
