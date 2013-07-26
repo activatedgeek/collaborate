@@ -1,12 +1,14 @@
 <?php
 $con = mysqli_connect("localhost","root","123","collaborate");
-$resp = "OK";
+$resp = 'OK';
+
 if(!$con){
     $resp = 'DENY';
     echo $resp;
     mysqli_close($con);
     return;
 }
+
 $username = $_POST['username'];
 $query = "SELECT username FROM user WHERE username='".$username."'";
 $result = mysqli_query($con, $query);
