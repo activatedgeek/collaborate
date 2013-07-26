@@ -55,3 +55,11 @@ text-align: center;
     margin-left: 87%;
     margin-top: 0.5em;
 }
+
+input[type='file']{
+    font-family: poiret-one, sans-serif;
+    font-size: 1.5em;
+}
+#reset{
+    cursor: pointer;
+}
