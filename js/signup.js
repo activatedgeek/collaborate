@@ -1,8 +1,19 @@
+var avatar = false;
 $(document).ready(function(){
     var login = document.getElementById("login");
     login.onclick = function(){
         window.open("http://localhost/collaborate/login.php","_parent",true);
     };
+
+    $("#reset").click(function(){
+        $("#avatar_blob").wrap('<form>').parent('form').trigger('reset');
+        $("#avatar_blob").unwrap();
+        $(this).css("color","gray");
+        avatar=false;
+    });
+    
+    $("#avatar_blob").change(function(){
+    });
 });
 
 var firstName,lastName ,username,email,password,pass_repeat;
@@ -48,7 +59,7 @@ function uniqueUsername(){
 
 function checkValidity(){
     getDetails();
-    if(firstName!="" && lastName!="" && username!="" && email!="" && password!="" && uniqueUsername && password==pass_repeat && password.length>8){
+    if(firstName!="" && lastName!="" && username!="" && email!="" && password!="" && uniqueUsername && password==pass_repeat && password.length>8 && avatar){
         return true;
     }
     else{
@@ -130,6 +141,7 @@ function checkDetails(){
 
 
 function signup(){
+    /*
         if(checkValidity()){
             $.post("accounts/setup.php",
                 {firstName: firstName, lastName: lastName, username: username,email: email,password: password},
@@ -140,4 +152,5 @@ function signup(){
                         alert(data);
                 });
         }
+    */
 }
