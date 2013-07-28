@@ -76,7 +76,7 @@ input.genCreds{
     -webkit-box-shadow: inset 0 3px 3px #5c5d63;
     box-shadow:         inset 0 3px 3px #5c5d63;
 }
-input:focus{
+input:focus,textarea:focus{
 	background-color: #edc951;
 }
 /**************Standard Input Theme***********/
@@ -173,6 +173,7 @@ input:focus{
 	position: relative;
 	width: 100%;
 	height: 1em;
+	margin-top: 1em;
 	-moz-box-shadow:    0 0 10px 3px #5c5d63;
     -webkit-box-shadow: 0 0 10px 3px #5c5d63;
     box-shadow:         0 0 10px 3px #5c5d63;
@@ -207,3 +208,21 @@ input:focus{
     color: #333131;
 }
 /****Footer****/
+/***Delete Button for objects***/
+.delete{
+	display: block;
+	width: 100%;
+	text-align: right !important;
+	color: red;
+	font-family: monospace;
+	font-size: 1.1em;
+	font-weight: bold;
+	cursor: pointer;
+	transition: text-decoration 0.5s;
+    -ms-transition: text-decoration 0.5s;
+    -webkit-transition: text-decoration 0.5s;
+}
+.delete:hover{
+	text-decoration: underline;
+}
+/***Delete Button for objects***/
