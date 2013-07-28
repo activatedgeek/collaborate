@@ -17,6 +17,23 @@ if(!$result){
     //return;
 }
 $row = mysqli_fetch_array($result);
+
+//Get presentable time unit off seconds
+function getTime($input){
+	if($input<60){ //seconds
+		return $input." second(s) ago";
+	}
+	else if($input<3600){ //minutes
+		return intval($input/60)." minute(s) ago";
+	}
+	else if($input<21600){ //hours
+		return intval($input/3600)." hour(s) ago";
+	}
+	else{ //days
+		return intval($input/86400)." day(s) ago";	
+	}
+}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -35,6 +52,7 @@ $row = mysqli_fetch_array($result);
   	<link rel="shortcut icon" href="http://localhost/collaborate/icons/collaborate.ico">
 	<script src="js/jquery.js"></script>
   	<link rel="stylesheet" type="text/css" href="stylesheets/navs.css">
+  	<link rel="stylesheet" type="text/css" href="stylesheets/code_content.css">
     <?php
     	echo "<link rel='stylesheet' type='text/css' href='stylesheets/",basename(__FILE__,'.php'),".css'>";
     	echo "<script type='text/javascript' src='js/",basename(__FILE__,'.php'),".js'></script>";
@@ -79,7 +97,7 @@ $row = mysqli_fetch_array($result);
 				else if($pid['type']=='private'){
 					echo "<span class='type' style='color:red;font-weight: bolder'>Private";
 				}
-				echo "</span><span id='title'>",$_GET['title'],"</span><span class='created'>",date_format(new DateTime($pid['created']), 'F j, Y'),"</span></br>
+				echo "</span><span class='title' id='pid_",$pid['pid'],"'>",$_GET['title'],"</span><span class='created'>",date_format(new DateTime($pid['created']), 'F j, Y'),"</span></br>
 						<table id='project'>
 						<tr><td class='desc'>",$pid['des'],"</td><td class='author'>",$username['username'],"</td></tr>
 						<tr>";
@@ -92,22 +110,8 @@ $row = mysqli_fetch_array($result);
 				else{
 					echo "<td class='due' style='color:green;font-weight:bolder'>",$pid['due']," days to deadline</span>";
 				}
-				echo "</td><td class='last_modif'>Last Edit: ";
-					if($pid['last_mod']<60){ //seconds
-						echo $pid['last_mod']," second(s) ago";
-					}
-					else if($pid['last_mod']<3600){ //minutes
-						echo intval($pid['last_mod']/60)," minute(s) ago";
-					}
-					else if($pid['last_mod']<21600){ //hours
-						echo intval($pid['last_mod']/3600)," hour(s) ago";
-					}
-					else{ //days
-						echo intval($pid['last_mod']/86400)," day(s) ago";	
-					}
-				echo "</td></tr>
-					</table>
-					</div>";
+				echo "</td><td class='last_modif'>Last Edit: ",getTime($pid['last_mod']),"</td></tr></table></div>";
+
 				$query = "SELECT COUNT(file_id) AS num_files FROM file WHERE project_id=".$pid['pid'];
 				$result = mysqli_query($con,$query);
 				if(!$result){
@@ -116,22 +120,27 @@ $row = mysqli_fetch_array($result);
 					return;
 				}
 				$num_files = mysqli_fetch_array($result);
-				echo "<div id='p_directory'><span id='dir'>",$_GET['title'],"/</span><span id='all_file'>",$num_files['num_files']," Files</span></div>
+				echo "<div id='p_directory'><span id='dir' class='dir'>",$_GET['title'],"/</span><span id='all_file'>",$num_files['num_files']," Files in Project</span></div>
 					<div id='p_content'><input type='button' id='new_file' class='generalButton' value='Add New File'></div>";
 				if($num_files['num_files']==0){
-					echo "<div style='margin-bottom:1em'><span class='null_data'>Empty Directory!</span></div>";
+					echo "<div class='dir_content' style='margin-bottom:1em'><span class='null_data'>Empty Directory!</span></div>";
 				}
 				else{
-					$query = "SELECT * FROM file WHERE project_id=".$pid['pid'];
+					$query = "SELECT file_id,path,TIME_TO_SEC(TIMEDIFF(NOW(),`last_fmodified`)) AS last_mod,last_fmodified_by AS editor FROM file WHERE project_id=".$pid['pid'];
 					$result = mysqli_query($con,$query);
 					if(!$result){
+						//echo mysqli_error($con);
 						echo "<span style='color:red;font-size: 1em;'>QUERY FAILED</span>";
 						mysqli_close($con);
 						return;
 					}
+					echo "<div class='files'>";
 					while($file_det = mysqli_fetch_array($result)){
-						
+						echo "<table class='file_details'><tr><td class='basename' fid='file_",$file_det['file_id'],"'>",basename($file_det['path']),"</td><td class='dirname'>",dirname($file_det['path']),"/</td>
+						       <td class='last_edit'>Last edited by ",($row['username']==$file_det['editor']?"you":$file_det['editor'])," ",getTime($file_det['last_mod']),"</td>
+						       <td><span class='delete' id='id_",$file_det['file_id'],"'>DELETE</span></td></tr></table>";
 					}
+					echo "</div>";
 				}
 			}
 			else{
