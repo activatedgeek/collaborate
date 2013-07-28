@@ -46,6 +46,7 @@ table textarea{
 	font-size: 1.5em;
 	border: none;
 	background: #eaeaea;
+	border-radius: 10px;
 }
 input.genCreds{
 	width: 30em;
@@ -85,10 +86,18 @@ span.radio{
 }
 .type{
 	font-size: 1em;
+	padding: 0.5em;
 }
-#title{
+.title{
 	font-size: 2.5em;
 	font-weight: bold;
+	cursor: pointer;
+	transition: color 0.5s;
+    -ms-transition: color 0.5s;
+    -webkit-transition: color 0.5s;
+}
+.title:hover{
+	color: blue;
 }
 #project td{
 	width: 25em;
@@ -97,14 +106,16 @@ span.radio{
 }
 .created{
 	font-weight: bold;
+	padding: 0.5em;
 }
 #p_directory{
-	background: linear-gradient(rgba(10,10,10,1) 0,rgba(142,143,143,1) 80%,rgba(150,150,150,1) 100%);
 	height: 3em;
 	padding: 0.3em;
+	background: linear-gradient(rgba(33,33,33,1) 0,rgba(142,143,143,1) 60%,rgba(188,188,188,1) 100%);
 	cursor: default;
+	text-shadow: 0 3px 3px #303030;
 }
-#dir{
+.dir{
 	color: white;
 	font-size: 2em;
 	padding: 0.3em;
@@ -118,9 +129,13 @@ span.radio{
 
 }
 #new_file{
+	display: inline-block;
 	font-size: 2em;
 	margin: 0.5em;
 	margin-left: 42.3%;
+}
+#p_content{
+	height: 5em;
 }
 .null_data{
 	display: block;
@@ -129,5 +144,52 @@ span.radio{
 	text-align: center;
 	color: gray;
 	font-size: 2em;
+}
+.file_details{
+	width: 99%;
+	margin: auto;
+	margin-bottom: 0.2em;
+	/*
+	-moz-box-shadow:    0 0 3px 3px #5c5d63;
+    -webkit-box-shadow: 0 0 3px 3px #5c5d63;
+    box-shadow:         0 0 3px 3px #5c5d63;
+    */
+    border-radius: 5px;
+    background: linear-gradient(rgba(215,226,234,1) 0,rgba(172,180,187,1) 50%,rgba(226,227,227,1) 100%);
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+.file_details td{
+	padding: 0.3em;
+}
+td.basename{
+	width: 13em;
+	padding: 0.5em;
+	font-size: 1.7em;
+	font-weight: bolder;
+	cursor: pointer;
+	border-right: solid #e2e3e3 5px;
+	transition: color 0.5s, text-decoration 0.5s;
+    -ms-transition: color 0.5s, text-decoration 0.5s;
+    -webkit-transition: color 0.5s, text-decoration 0.5s;
+}
+td.basename:hover{
+	color: blue;
+	text-decoration: underline;
+}
+td.dirname{
+	width: 19em;
+	padding: 0.5em;
+	color: #44484a;
+	font-size: 1.3em;
+	font-weight: bolder;
+	border-right: solid #e2e3e3 5px;
+	cursor: default;
+}
+td.last_edit{
+	color: #44484a;
+	font-size: 1.1em;
+	padding: 0.5em;
+	cursor: default;
 }
 /***Project details***/
