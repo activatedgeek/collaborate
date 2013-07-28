@@ -19,6 +19,77 @@ $(document).ready(function(){
 			}
 		})
 	});
+	$(".title").click(function(){
+		window.location.reload();
+	});
+	/**Functionality of adding a new file***/
+	$("#new_file").click(function(){
+		$(this).hide().parent().append("<input type='text' style='display:inline-block;margin-left: 7%;margin-top: 1.5%;' class='genCreds' placeholder='FORMAT = folder/file.ext'>\
+			<input style='display:inline-block;font-size: 1.5em' class='linkButton' type='button' id='confirm_file' value='Confirm!'>\
+			<input style='display:inline-block;font-size: 1.5em' class='generalButton' type='button' id='cancel_file' value='Cancel'>").hide().fadeIn(500);
+	});
+	
+	$(document).on('click',"#cancel_file",function(){ //cancel adding file
+		$("#new_file").siblings().remove();
+		$("#new_file").fadeIn(500);
+	});
+	$(document).on('click','#confirm_file',function(){
+		if($(this).prev().val()!=''){
+			var pid = $(".title").attr("id").split("_");
+			var path = "../projects/"+$(".title").text()+"/"+$(this).prev().val();
+			$.post("utils/file_check.php",{path: path},function(data,status){
+				if(status='success' && data=='false'){
+					$.post("accounts/new_object.php",{object: "file",title: $(".title").text(),pid: pid[1],path: $("#confirm_file").prev().val()},function(data,status){
+						if(status=='success'){
+							//alert(data);
+							window.location.reload();
+						}
+					});
+				}
+				else{
+					$("#cancel_file").trigger('click');
+				}
+			});
+		}
+	});
+	/**Functionality of adding a new file***/
+	
+	/**************Handling text editor**********************/
+	var line;
+	var res_back=0;
+    var ctrlkey=false;
+	$(".basename").click(function(){
+		var appendPath="";
+		if($(this).next().text()!='./'){
+			var basename = ($(this).next().text()).split("/");
+			basename[basename.length-1]="";
+			appendPath = basename.join("/");
+			$("#dir").after("<span class='dir' id='subdir'>"+appendPath+"</span>");
+		}
+		$.post("utils/loadfile.php",{path: $(".title").text()+"/"+appendPath+$(this).text()},function(data,status){
+			if(status=='success'){
+				$(".files").html(data).hide().fadeIn(500);
+				$("#p_content").append("<input type='button' class='linkButton' value='Back' style='float:right;margin: 1em;font-size:1.5em;' id='back'>");
+			}
+			line = $("#line span").last().attr("id");
+			line = (line.split("_"))[1];
+		});
+	});
+	$(document).on('click','#back',function(){ //back button to main files
+		window.location.reload();
+	});
+
+    /**************Handling text editor**********************/
+
+	$(".delete").click(function(){
+		var fid = ($(this).attr("id")).split("_");
+		$.post("utils/destroy.php",{type: "file",id: fid[1],title: $(".title").text()},function(data,status){
+			if(status=='success'){
+				//alert(data);
+				window.location.reload();
+			}
+		});
+	});
 });
 
 function valid(){
