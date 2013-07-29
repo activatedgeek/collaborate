@@ -8,4 +8,4 @@ Yet to implement
 ================
 Found a better way to save files.
 Using textarea, even escape sequences are being handled!!
-No croo-browser/platform issues!
+No cross-browser/platform issues!
