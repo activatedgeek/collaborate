@@ -78,7 +78,73 @@ $(document).ready(function(){
 	$(document).on('click','#back',function(){ //back button to main files
 		window.location.reload();
 	});
-
+	$(document).on('keypress',"#code",function(event){
+            if(event.keyCode==13){ //enter key
+                line++;
+                $("#line").append("<span class='number' id='line_"+line+"'>"+line+"</span>");
+            }
+            //While the backspace or delete key is pressed, keep updating lines
+            else if(event.keyCode==8 || event.keyCode==46){ //backspace or delete key
+                    $.post("utils/line_check.php",{code: $(this).html()},function(data,status){
+                        if(status=='success'){
+                            res_back = data.split(" ");
+                        }
+                        if(line!=1 && res_back[0]==(line-1)){
+                            $("#line_"+line).remove();
+                            line--;
+                        }
+                    });
+            }
+        });
+		$(document).on('keyup',"#code",function(event){
+            //To handle mass delete of code
+            if((event.keyCode==8)  || (event.keyCode>=46 && event.keyCode<=90) || (event.keyCode>=96 && event.keyCode<=111) || (event.keyCode>=186 && event.keyCode<=192) || (event.keyCode>=219 && event.keyCode<=222) ){
+                if($(this).html()=='<br>'){
+                    $("#line_1").siblings().remove();
+                    line=1;
+                    return;
+                }
+                $.post("utils/line_check.php",{code: $(this).html()},function(data,status){
+                        if(status=='success'){
+                            res_back = data.split(" ");
+                        }
+                        var diff=line-res_back[0];
+                        if(diff>0){
+                            var id = $("#line_1").siblings(":last").attr("id");
+                            id = id.split("_");
+                            id[1] -=diff;
+                            id = '#'+id.join("_");
+                            $(id).nextAll().remove();
+                            line = line-diff;
+                        }
+                    });
+            }
+            //To handle code pastes
+            if(event.keyCode==86 && ctrlkey){
+                $.post("utils/line_check.php",{code: $(this).html()},function(data,status){
+                        if(status=='success'){
+                            res_back = data.split(" ");
+                        }
+                        var diff = res_back[0] - line;
+                        if(diff>0){
+                            //diff+=5; //just some extra lines //still need better handle perhaps js would do
+                            for(var i=0;i<diff;i++){
+                                line++;
+                                $("#line").append("<span class='number' id='line_"+line+"'>"+line+"</span>");
+                            }
+                        }
+                        ctrlkey=false;
+                    });
+            }
+            if(event.ctrlKey){
+                ctrlkey=false;
+            }
+        });
+		
+        $(document).on('keydown',"#code",function(event){
+            if(event.ctrlKey)
+                ctrlkey=true;
+        });
     /**************Handling text editor**********************/
 
 	$(".delete").click(function(){
