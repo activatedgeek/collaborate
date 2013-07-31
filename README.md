@@ -4,8 +4,6 @@ Collaborate
 
 info.txt : REMINDER: empty it before using
 
-Yet to implement
+Implemented
 ================
-Found a better way to save files.
-Using textarea, even escape sequences are being handled!!
-No cross-browser/platform issues!
+Text editor using text area, basic copy paste delete and normal char delete or enter working
