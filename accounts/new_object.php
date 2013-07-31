@@ -45,6 +45,7 @@ if(!$result){
     return;
 }
 echo "QUERY SUCCESSFUL";
+return;
 }
 
 else if($_POST['object']=='file'){
