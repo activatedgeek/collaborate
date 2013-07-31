@@ -3,7 +3,7 @@
     src: url('code_text/Anonymous_Pro.ttf') format('truetype');
 }
 .code{
-  position: relative;
+	position: relative;
 	padding: 0.5em;
 	margin-bottom: 1em;
     height: 100%;
@@ -14,7 +14,6 @@
 	float: left;
 	margin-left: 12.5%;
     overflow: hidden;
-	/*width: 4em;*/
 	-moz-box-shadow:    0 0 5px 2px #87aada;
     -webkit-box-shadow: 0 0 5px 2px #87aada;
     box-shadow:         0 0 5px 2px #87aada;
@@ -40,12 +39,22 @@
 	background: #f4e639;
 	color:  black;
 }
-#code {
+.filename{
+    width: 13em !important;
+    font-size: 1.5em;
+    text-align: left !important;
+    padding: 0.1em !important;
+    margin-left: 10% !important;
+    margin-top: 1em !important;
+}
+#code{
     overflow-y: hidden;
     white-space: nowrap;
     width: 70%;
+    padding-top: 0;
     padding-left: 1em;
-    padding-bottom: 0.3em;
+    padding-right: 1em;
+    padding-bottom: 0;
     font-family: 'Anonymous_Pro';
     font-size: 1.3em;
     letter-spacing: 2px;
@@ -54,4 +63,26 @@
     -moz-box-shadow:    0 0 5px 2px #87aada;
     -webkit-box-shadow: 0 0 5px 2px #87aada;
     box-shadow:         0 0 5px 2px #87aada;
+}
+#compiler_title{
+    margin: auto;
+    font-family: 'Anonymous_Pro';
+    font-size: 1.5em;
+    width: 70%; 
+}
+#compiler_output{
+    margin: auto;
+    margin-top: 1em;
+    padding: 0.5em;
+    overflow: auto;
+    width: 70%;
+    height: 13em;
+    max-height: 13em;
+    font-family: 'Anonymous_Pro';
+    font-size: 1em;
+    -moz-box-shadow:    0 0 5px 2px #87aada;
+    -webkit-box-shadow: 0 0 5px 2px #87aada;
+    box-shadow:         0 0 5px 2px #87aada;
+    color: white;
+    background: black;
 }
