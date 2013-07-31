@@ -4,16 +4,16 @@ $time = new Timer;
 $file = $_POST['file'];
 $mode = $_POST['mode'];
 $redirstream = ' 2>&1 ';
-$pathprefix = '../';
+$pathprefix = '../projects/';
 function setProgram($file,$mode){
     $ext = pathinfo($file,PATHINFO_EXTENSION);
-    if($mode == 'COMPILE'){
+    if($mode == 'Compile'){
         if($ext=='c' || $ext=='c++' || $ext=='cc' || $ext=='cpp' || $ext=='cxx')
             return 'g++';
         elseif($ext=='java')
             return 'javac';
     }
-    elseif($mode=='RUN'){
+    elseif($mode=='Run'){
         if($ext=='exe')
             return '';
         else if($ext=='class')
@@ -23,12 +23,14 @@ function setProgram($file,$mode){
     }
 }
 
-if(isset($file) && $mode=='COMPILE'){
+if(isset($file) && $mode=='Compile'){
     $command='';
-    if(setProgram($file,$mode)=='g++')
-        $command = setProgram($file,$mode).' '.$pathprefix.$file.' -o '.pathinfo($pathprefix.$file,PATHINFO_DIRNAME).'/'.pathinfo($file,PATHINFO_FILENAME).$redirstream;
-    elseif(setProgram($file,$mode)=='javac')
+    if(setProgram($file,$mode)=='g++'){
+        $command = setProgram($file,$mode).' "'.$pathprefix.$file.'" -o "'.pathinfo($pathprefix.$file,PATHINFO_DIRNAME).'/'.pathinfo($file,PATHINFO_FILENAME).'"'.$redirstream;
+    }
+    elseif(setProgram($file,$mode)=='javac'){
         $command = setProgram($file,$mode).' '.$pathprefix.$file.$redirstream;
+    }
         
     $time->start();
     $output = shell_exec($command);
@@ -42,9 +44,10 @@ if(isset($file) && $mode=='COMPILE'){
     }
 }
 
-elseif(isset($file) && $mode=='RUN'){
-    if(setProgram($file,$mode)=='' || setProgram($file,$mode)=='python')
+elseif(isset($file) && $mode=='Run'){
+    if(setProgram($file,$mode)=='' || setProgram($file,$mode)=='python'){
         $command = setProgram($file,$mode).' '.escapeshellarg($pathprefix.$file).$redirstream;
+    }
     elseif(setProgram($file,$mode)=='java')
         $command = setProgram($file,$mode).' -cp '.escapeshellarg(pathinfo($pathprefix.$file,PATHINFO_DIRNAME)).' '.pathinfo($file,PATHINFO_FILENAME).$redirstream;
     
